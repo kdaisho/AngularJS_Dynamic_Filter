@@ -15,9 +15,11 @@
     <input type="text" ng-model="desc2">
 
     <div id="fwindow" class="filterWindow">
-        <button ng-click="reset()">Reset</button>
-        <button ng-click="getFilterItems(flist)">Get</button>
-        <select id="select" ng-model="desc2">
+        <!-- <button ng-click="reset(flist)">Reset</button> -->
+        <button ng-click="desc = undefined">Reset</button>
+        <!-- <button ng-click="getFilterItems(flist)">Get</button> -->
+        <select id="select" ng-model="desc">
+            <option value="" selected hidden>Choose here</option>
             <option ng-repeat="item in flist | unique: 'item.name'" value="{{item}}">{{item}}</option>
         </select>
     </div>
@@ -26,13 +28,16 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Description</th>
-            <th>Duration</th>
+            <th ng-click="getFilterItems(flist, 2)">Description</th>
+            <th ng-click="getFilterItems(flist, 3)">Genre</th>
+            <th ng-click="getFilterItems(flist, 4)">Duration</th>
         </tr>
-        <tr ng-repeat="item in list | filter: desc2 | filter: desc">
+        <!-- <tr ng-repeat="item in list | filter: desc2 | filter: desc"> -->
+        <tr ng-repeat="item in list | filter: desc">
             <td>{{item.id}}</td>
             <td>{{item.name}}</td>
             <td>{{item.description}}</td>
+            <td>{{item.genre}}</td>
             <td>{{item.duration}}</td>
         </tr>
     </table>

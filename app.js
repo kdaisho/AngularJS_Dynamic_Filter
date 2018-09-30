@@ -5,26 +5,31 @@ table.controller('TableController', function TableController($scope) {
         id: 1,
         name: 'Nexus S',
         description: 'Fast just got faster with Nexus S',
+        genre: 'Electronics',
         duration: 30
     }, {
         id: 2,
         name: 'Motorola XOOM™ with Wi-Fi',
         description: 'The Next, Next Generation tablet',
+        genre: 'Electronics',
         duration: 10
     }, {
         id: 3,
         name: 'Samsung Glaxy',
         description: 'Slow and Explosive Negative Legacy',
+        genre: 'Organic',
         duration: 90
     }, {
         id: 4,
         name: 'Samsung Glaxy',
         description: 'Slow and Explosive Negative Legacy',
+        genre: 'Organic',
         duration: 40
     }, {
         id: 5,
         name: 'Samsung Glaxy',
         description: 'Slow and Explosive Negative Legacy',
+        genre: 'Gas Operated',
         duration: 120
     }];
 
@@ -34,8 +39,9 @@ table.controller('TableController', function TableController($scope) {
     // console.log($scope.flist);
 
 
-    $scope.reset = function() {
+    $scope.reset = function(list) {
         console.log('reset fired');
+        // list.length = 0;
         var options = document.querySelectorAll('#fwindow option');
         for (let i = 0; i < options.length; i++) {
             options[i].selected = options[i].defaultSelected;
@@ -44,7 +50,7 @@ table.controller('TableController', function TableController($scope) {
     }
     var table = document.getElementById('table');
 
-    $scope.getFilterItems = function(list) {
+    $scope.getFilterItems = function(list, index) {
         list.length = 0;
         if (list.length >= 1) {
             console.log('list exists ' + list);
@@ -56,7 +62,7 @@ table.controller('TableController', function TableController($scope) {
         // console.log('rows: ' + rows);
         // console.log(rows[1].cells[2].textContent);
         for (let i = 1; i < rows.length; i++) {
-            var a = rows[i].cells[2].textContent;
+            var a = rows[i].cells[index].textContent;
             arr.push(a);
         }
         console.log(arr);
