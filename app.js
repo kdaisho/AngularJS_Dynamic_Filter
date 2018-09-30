@@ -28,14 +28,11 @@ table.controller('TableController', function TableController($scope) {
         duration: 120
     }];
 
-    $scope.flist = [
-        {name: 'Fast'},
-        {name: 'Slow'},
-        {name: 'Slow'},
-        {name: 'Slow'},
-        {name: 'Slow'},
-        {name: 'X'}
-    ];
+    $scope.flist = [];
+    // console.log($scope.flist);
+    // $scope.flist = ['ha', 'hi'];
+    // console.log($scope.flist);
+
 
     $scope.reset = function() {
         console.log('reset fired');
@@ -44,6 +41,30 @@ table.controller('TableController', function TableController($scope) {
             options[i].selected = options[i].defaultSelected;
         }
         $scope.desc = {};
+    }
+    var table = document.getElementById('table');
+
+    $scope.getFilterItems = function(list) {
+        list.length = 0;
+        if (list.length >= 1) {
+            console.log('list exists ' + list);
+            // $scope.flist = [];
+        }
+        var arr = [];
+
+        var rows = table.rows;
+        // console.log('rows: ' + rows);
+        // console.log(rows[1].cells[2].textContent);
+        for (let i = 1; i < rows.length; i++) {
+            var a = rows[i].cells[2].textContent;
+            arr.push(a);
+        }
+        console.log(arr);
+        console.log(list);
+        // list[1] = arr;
+        list.push.apply(list, arr);
+        console.log(list);
+        // return arr;
     }
 });
 
