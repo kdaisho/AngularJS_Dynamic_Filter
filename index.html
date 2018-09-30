@@ -18,7 +18,7 @@
         <button ng-click="reset()">Reset</button>
         <button ng-click="getFilterItems(flist)">Get</button>
         <select id="select" ng-model="desc2">
-            <option ng-repeat="item in flist track by $index" value="{{item}}">{{item}}</option>
+            <option ng-repeat="item in flist | unique: 'item.name'" value="{{item}}">{{item}}</option>
         </select>
     </div>
 
