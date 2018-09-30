@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Table</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body ng-app="table" ng-controller="TableController" ng-cloak>
+    <h1>Dynamic Table Filter</h1>
+
+    <!-- <input type="text" ng-model="desc2"> -->
+
+    <div id="fwindow" class="filterWindow">
+        <button ng-click="reset()">Reset</button>
+        <button ng-click="getFilterItems()">Get</button>
+        <select ng-model="desc2">
+            <!-- <option ng-repeat="item in list | filter: desc | unique: 'item.name'" value="{{item.name}}"> -->
+            <option value="" selected disabled_ hidden_>Choose here</option>
+            <option ng-repeat="item in list | filter: desc2 | unique: 'item.duration'" value="{{item.duration}}">
+                <!-- <option ng-repeat="item in list |  unique: ''" value="{{item.duration}}"> -->
+                {{item.duration}}
+            </option>
+        </select>
+    </div>
+
+    <table id="table" class="table">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Duration</th>
+        </tr>
+        <tr ng-repeat="item in list | filter: desc2 | filter: desc">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.description}}</td>
+            <td>{{item.duration}}</td>
+        </tr>
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
