@@ -38,27 +38,30 @@ table.controller('TableController', function TableController($scope) {
     $scope.flist = [];
 
     $scope.reset = function(list) {
-        console.log('reset fired');
-        // list.length = 0;
         var options = document.querySelectorAll('#fwindow option');
         for (let i = 0; i < options.length; i++) {
             options[i].selected = options[i].defaultSelected;
         }
         $scope.desc = {};
-    }
+    };
+
     var table = document.getElementById('table');
+    var alreadyHas = false;
+    $scope.getSelect = function(list, index) {
+        console.log('getSelect ' + index);
+        $scope.filtering = true;
+        var fwindow = document.getElementById('fwindow');
+        table.rows[0].cells[index].appendChild(fwindow);
+        fwindow.classList.add('absolute');
+        $scope.getFilterItems(list, index);
+    };
 
     $scope.getFilterItems = function(list, index) {
+        // if (alreadyHas) return;
+        console.log('getFil ' + index);
         list.length = 0;
-        if (list.length >= 1) {
-            console.log('list exists ' + list);
-            // $scope.flist = [];
-        }
         var arr = [];
-
         var rows = table.rows;
-        // console.log('rows: ' + rows);
-        // console.log(rows[1].cells[2].textContent);
         for (let i = 1; i < rows.length; i++) {
             var a = rows[i].cells[index].textContent;
             arr.push(a);
@@ -68,8 +71,11 @@ table.controller('TableController', function TableController($scope) {
         // list[1] = arr;
         list.push.apply(list, arr);
         console.log(list);
+        // alreadyHas = true;
         // return arr;
-    }
+    };
+
+    $scope.filtering = false;
 
     //Ajax
     var typingTimer;

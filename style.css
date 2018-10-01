@@ -20,6 +20,13 @@ input {
 th {
     background: turquoise;
     color: #fff;
+    position: relative;
+}
+
+.filterWindow.absolute {
+    position: absolute;
+    top: 34px;
+    right: 0;
 }
 
 th:hover,
