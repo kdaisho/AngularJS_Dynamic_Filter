@@ -37,16 +37,17 @@ table.controller('TableController', function TableController($scope) {
 
     $scope.flist = [];
 
-    $scope.reset = function(list) {
-        var options = document.querySelectorAll('#fwindow option');
-        for (let i = 0; i < options.length; i++) {
-            options[i].selected = options[i].defaultSelected;
-        }
-        $scope.desc = {};
-    };
+    // $scope.reset = function(list) {
+    //     var options = document.querySelectorAll('#fwindow option');
+    //     for (let i = 0; i < options.length; i++) {
+    //         options[i].selected = options[i].defaultSelected;
+    //     }
+    //     $scope.desc = '';
+    // };
+    $scope.defaultText = 'Choose here';
 
     var table = document.getElementById('table');
-    var alreadyHas = false;
+    var alreadyHas = true;
     $scope.getSelect = function(list, index) {
         console.log('getSelect ' + index);
         $scope.filtering = true;
@@ -56,8 +57,28 @@ table.controller('TableController', function TableController($scope) {
         $scope.getFilterItems(list, index);
     };
 
+    $scope.changeText = function() {
+        // $scope.defaultText = 'Reset Filter';
+
+        if (alreadyHas) {
+            $scope.defaultText = 'Reset Filter';
+            alreadyHas = false;
+        }
+        else {
+            $scope.defaultText = 'Choose here';
+            alreadyHas = true;
+        }
+    }
+
     $scope.getFilterItems = function(list, index) {
-        // if (alreadyHas) return;
+        // if (alreadyHas) {
+        //     $scope.defaultText = 'Reset Filter';
+        //     alreadyHas = false;
+        // }
+        // else {
+        //     $scope.defaultText = 'Choose here';
+        //     alreadyHas = true;
+        // }
         console.log('getFil ' + index);
         list.length = 0;
         var arr = [];
@@ -71,7 +92,6 @@ table.controller('TableController', function TableController($scope) {
         // list[1] = arr;
         list.push.apply(list, arr);
         console.log(list);
-        // alreadyHas = true;
         // return arr;
     };
 
