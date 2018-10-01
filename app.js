@@ -79,7 +79,8 @@ table.controller('TableController', function TableController($scope) {
 
     //Ajax
     var typingTimer;
-    var doneInterval = 2000;
+    // var doneInterval = 2000;
+    var doneInterval = 100;
     var myInput = document.getElementById('query');
 
     myInput.addEventListener('keyup', function() {

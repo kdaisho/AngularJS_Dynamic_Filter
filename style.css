@@ -29,7 +29,7 @@ th {
     right: 0;
 }
 
-th:hover,
+th span:hover,
 button:hover,
 select:hover,
 option:hover {
