@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name": "Nexus S",
+        "description": "Fast just got faster with Nexus S",
+        "genre": "Electronics",
+        "duration": 30
+    },
+    {
+        "id": 2,
+        "name": "Motorola XOOM™ with Wi-Fi",
+        "description": "The Next, Next Generation tablet",
+        "genre": "Electronics",
+        "duration": 10
+    },
+    {
+        "id": 3,
+        "name": "Samsung Glaxy",
+        "description": "Slow and Explosive Negative Legacy",
+        "genre": "Organic",
+        "duration": 90
+    },
+    {
+        "id": 4,
+        "name": "Samsung Glaxy",
+        "description": "Slow and Explosive Negative Legacy",
+        "genre": "Organic",
+        "duration": 40
+    },
+    {
+        "id": 5,
+        "name": "Samsung Glaxy",
+        "description": "Slow and Explosive Negative Legacy",
+        "genre": "Gas Operated",
+        "duration": 120
+    }
+]

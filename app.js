@@ -1,43 +1,41 @@
 var table = angular.module('table', []);
 
 table.controller('TableController', function TableController($scope) {
-    $scope.list = [{
-        id: 1,
-        name: 'Nexus S',
-        description: 'Fast just got faster with Nexus S',
-        genre: 'Electronics',
-        duration: 30
-    }, {
-        id: 2,
-        name: 'Motorola XOOM™ with Wi-Fi',
-        description: 'The Next, Next Generation tablet',
-        genre: 'Electronics',
-        duration: 10
-    }, {
-        id: 3,
-        name: 'Samsung Glaxy',
-        description: 'Slow and Explosive Negative Legacy',
-        genre: 'Organic',
-        duration: 90
-    }, {
-        id: 4,
-        name: 'Samsung Glaxy',
-        description: 'Slow and Explosive Negative Legacy',
-        genre: 'Organic',
-        duration: 40
-    }, {
-        id: 5,
-        name: 'Samsung Glaxy',
-        description: 'Slow and Explosive Negative Legacy',
-        genre: 'Gas Operated',
-        duration: 120
-    }];
+    // $scope.list = [{
+    //     id: 1,
+    //     name: 'Nexus S',
+    //     description: 'Fast just got faster with Nexus S',
+    //     genre: 'Electronics',
+    //     duration: 30
+    // }, {
+    //     id: 2,
+    //     name: 'Motorola XOOM™ with Wi-Fi',
+    //     description: 'The Next, Next Generation tablet',
+    //     genre: 'Electronics',
+    //     duration: 10
+    // }, {
+    //     id: 3,
+    //     name: 'Samsung Glaxy',
+    //     description: 'Slow and Explosive Negative Legacy',
+    //     genre: 'Organic',
+    //     duration: 90
+    // }, {
+    //     id: 4,
+    //     name: 'Samsung Glaxy',
+    //     description: 'Slow and Explosive Negative Legacy',
+    //     genre: 'Organic',
+    //     duration: 40
+    // }, {
+    //     id: 5,
+    //     name: 'Samsung Glaxy',
+    //     description: 'Slow and Explosive Negative Legacy',
+    //     genre: 'Gas Operated',
+    //     duration: 120
+    // }];
+
+    $scope.list = [];
 
     $scope.flist = [];
-    // console.log($scope.flist);
-    // $scope.flist = ['ha', 'hi'];
-    // console.log($scope.flist);
-
 
     $scope.reset = function(list) {
         console.log('reset fired');
@@ -71,6 +69,48 @@ table.controller('TableController', function TableController($scope) {
         list.push.apply(list, arr);
         console.log(list);
         // return arr;
+    }
+
+    //Ajax
+    var typingTimer;
+    var doneInterval = 2000;
+    var myInput = document.getElementById('query');
+
+    myInput.addEventListener('keyup', function() {
+        clearTimeout(typingTimer);
+        if (myInput.value) {
+            console.log('keyup fired');
+            typingTimer = setTimeout(
+                callAjax('data.json', function(data) {
+                    $scope.list = data;
+                    console.log($scope.list);
+                }),
+                doneInterval
+            );
+        }
+    });
+
+    function callAjax(url, callback) {
+        return function() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                console.log('ajax called');
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    try {
+                        var data = JSON.parse(xhttp.responseText);
+                        console.log('DATA: ' + data);
+                    }
+                    catch(error) {
+                        console.log(error.message + ' in ' + xhttp.responseText);
+                        return;
+                    }
+                    callback(data);
+                }
+            };
+
+            xhttp.open('GET', url, true);
+            xhttp.send();
+        }
     }
 });
 
