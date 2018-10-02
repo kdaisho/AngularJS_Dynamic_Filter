@@ -10,11 +10,11 @@ table.controller('TableController', function TableController($scope) {
     var table = document.getElementById('table');
     var alreadyHas = true;
     $scope.getSelect = function (list, index) {
-        console.log('getSelect ' + index);
-        $scope.filtering = true;
+        console.log('FLIST ' + list);
+        if (index == 2) $scope.filtering2 = true;
+        if (index == 3) $scope.filtering3 = true;
         var fwindow = document.getElementById('fwindow');
-        table.rows[0].cells[index].appendChild(fwindow);
-        fwindow.classList.add('absolute');
+        // table.rows[0].cells[index].appendChild(fwindow);
         $scope.getFilterItems(list, index);
     };
 
@@ -29,6 +29,7 @@ table.controller('TableController', function TableController($scope) {
     }
 
     $scope.getFilterItems = function (list, index) {
+        console.log('my index', index);
         list.length = 0;
         var arr = [];
         var rows = table.rows;
@@ -40,23 +41,6 @@ table.controller('TableController', function TableController($scope) {
     };
 
     $scope.filtering = false;
-
-    // $scope.listman = [];
-
-    $scope.update = function (obj, list, index) {
-        // console.log(obj);
-        console.log(list);
-        for (let i = 0; i < list.length; i++) {
-            if (obj === list[i].description) {
-                console.log('hit ' + i);
-                // list.splice(i, 1);
-                var p = list.slice(i, 1);
-                console.log(p);
-                list = p;
-                console.log(list);
-            }
-        }
-    };
 
     //Ajax
     var typingTimer;
@@ -155,7 +139,7 @@ angular.module('table').filter('mydesc', function () {
         // console.log(arr);
         angular.forEach(item, function(item) {
             for (let i = 0; i < arr.length; i++) {
-                if (item.description == arr[i]) {
+                if (item.description == arr[i] || item.genre == arr[i]) {
                     console.log(item);
                     out.push(item);
                 }

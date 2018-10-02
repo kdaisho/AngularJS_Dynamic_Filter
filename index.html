@@ -19,27 +19,30 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Description
+            <th style="position: relative;">Description
                 <span ng-mouseover="getSelect(flist, 2)">#</span>
-                <div id="fwindow" class="filterWindow" ng-show="filtering" style="background: rgba(0, 0, 0, .75);">
+                <div id="fwindow" class="filterWindow" ng-show="filtering2" style="position: absolute; top: 30px; left: 0; background: rgba(0, 0, 0, .75);">
                     <button ng-click="desc = ''">Reset</button>
-                    <select id="select" ng-model="descman" multiple>
+                    <select id="select" ng-model="descman" multiple ng-blur="filtering2 = false">
                         <option value="" selected default>{{defaultText}}</option>
                         <option ng-repeat="item in flist | unique: 'item.name'" value="{{item}}">{{item}}</option>
                     </select>
-                    <!-- <ul style="list-style: none;">
-                        <li ng-repeat="item in list | unique: 'description'">
-                            <input type="checkbox" ng-model="$parent.listman[item.description]" ng-change="update(item.description, list, 2)"> <label>{{item.description}}</label>
-                        </li>
-                    </ul> -->
                 </div>
             </th>
 
-            <th>Genre <span ng-click="getSelect(flist, 3)">#</span></th>
+            <th style="position: relative;">Genre <span ng-mouseover="getSelect(flist, 3)">#</span>
+                <div id="fwindow" class="filterWindow" ng-show="filtering3" style="position: absolute; top: 30px; left: 0; background: rgba(0, 0, 0, .75);">
+                    <button ng-click="desc = ''">Reset</button>
+                    <select id="select" ng-model="genreman" multiple ng-blur="filtering3 = false">
+                        <option value="" selected default>{{defaultText}}</option>
+                        <option ng-repeat="item in flist | unique: 'item.genre'" value="{{item}}">{{item}}</option>
+                    </select>
+                </div>
+            </th>
             <th>Duration <span ng-click="getSelect(flist, 4)">#</span></th>
         </tr>
         <!-- <tr ng-repeat="item in list | filter: desc | mydesc: ['Nexus S']"> -->
-        <tr ng-repeat="item in list | filter: desc | mydesc: descman">
+        <tr ng-repeat="item in list | filter: desc | mydesc: descman | mydesc: genreman">
             <td>{{item.id}}</td>
             <td>{{item.name}}</td>
             <td>{{item.description}}</td>
