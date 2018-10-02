@@ -1,49 +1,10 @@
 var table = angular.module('table', []);
 
 table.controller('TableController', function TableController($scope) {
-    // $scope.list = [{
-    //     id: 1,
-    //     name: 'Nexus S',
-    //     description: 'Fast just got faster with Nexus S',
-    //     genre: 'Electronics',
-    //     duration: 30
-    // }, {
-    //     id: 2,
-    //     name: 'Motorola XOOM™ with Wi-Fi',
-    //     description: 'The Next, Next Generation tablet',
-    //     genre: 'Electronics',
-    //     duration: 10
-    // }, {
-    //     id: 3,
-    //     name: 'Samsung Glaxy',
-    //     description: 'Slow and Explosive Negative Legacy',
-    //     genre: 'Organic',
-    //     duration: 90
-    // }, {
-    //     id: 4,
-    //     name: 'Samsung Glaxy',
-    //     description: 'Slow and Explosive Negative Legacy',
-    //     genre: 'Organic',
-    //     duration: 40
-    // }, {
-    //     id: 5,
-    //     name: 'Samsung Glaxy',
-    //     description: 'Slow and Explosive Negative Legacy',
-    //     genre: 'Gas Operated',
-    //     duration: 120
-    // }];
-
     $scope.list = [];
 
     $scope.flist = [];
 
-    // $scope.reset = function(list) {
-    //     var options = document.querySelectorAll('#fwindow option');
-    //     for (let i = 0; i < options.length; i++) {
-    //         options[i].selected = options[i].defaultSelected;
-    //     }
-    //     $scope.desc = '';
-    // };
     $scope.defaultText = 'Choose here';
 
     var table = document.getElementById('table');
@@ -58,8 +19,6 @@ table.controller('TableController', function TableController($scope) {
     };
 
     $scope.changeText = function() {
-        // $scope.defaultText = 'Reset Filter';
-
         if (alreadyHas) {
             $scope.defaultText = 'Reset Filter';
             alreadyHas = false;
@@ -71,15 +30,6 @@ table.controller('TableController', function TableController($scope) {
     }
 
     $scope.getFilterItems = function(list, index) {
-        // if (alreadyHas) {
-        //     $scope.defaultText = 'Reset Filter';
-        //     alreadyHas = false;
-        // }
-        // else {
-        //     $scope.defaultText = 'Choose here';
-        //     alreadyHas = true;
-        // }
-        console.log('getFil ' + index);
         list.length = 0;
         var arr = [];
         var rows = table.rows;
@@ -87,12 +37,7 @@ table.controller('TableController', function TableController($scope) {
             var a = rows[i].cells[index].textContent;
             arr.push(a);
         }
-        console.log(arr);
-        console.log(list);
-        // list[1] = arr;
         list.push.apply(list, arr);
-        console.log(list);
-        // return arr;
     };
 
     $scope.filtering = false;
