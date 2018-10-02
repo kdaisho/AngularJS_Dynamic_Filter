@@ -9,7 +9,7 @@ table.controller('TableController', function TableController($scope) {
 
     var table = document.getElementById('table');
     var alreadyHas = true;
-    $scope.getSelect = function(list, index) {
+    $scope.getSelect = function (list, index) {
         console.log('getSelect ' + index);
         $scope.filtering = true;
         var fwindow = document.getElementById('fwindow');
@@ -18,18 +18,17 @@ table.controller('TableController', function TableController($scope) {
         $scope.getFilterItems(list, index);
     };
 
-    $scope.changeText = function() {
+    $scope.changeText = function () {
         if (alreadyHas) {
             $scope.defaultText = 'Reset Filter';
             alreadyHas = false;
-        }
-        else {
+        } else {
             $scope.defaultText = 'Choose here';
             alreadyHas = true;
         }
     }
 
-    $scope.getFilterItems = function(list, index) {
+    $scope.getFilterItems = function (list, index) {
         list.length = 0;
         var arr = [];
         var rows = table.rows;
@@ -42,20 +41,35 @@ table.controller('TableController', function TableController($scope) {
 
     $scope.filtering = false;
 
+    // $scope.listman = [];
+
+    $scope.update = function (obj, list, index) {
+        // console.log(obj);
+        console.log(list);
+        for (let i = 0; i < list.length; i++) {
+            if (obj === list[i].description) {
+                console.log('hit ' + i);
+                // list.splice(i, 1);
+                var p = list.slice(i, 1);
+                console.log(p);
+                list = p;
+                console.log(list);
+            }
+        }
+    };
+
     //Ajax
     var typingTimer;
     // var doneInterval = 2000;
     var doneInterval = 100;
     var myInput = document.getElementById('query');
 
-    myInput.addEventListener('keyup', function() {
+    myInput.addEventListener('keyup', function () {
         clearTimeout(typingTimer);
         if (myInput.value) {
-            console.log('keyup fired');
             typingTimer = setTimeout(
-                callAjax('data.json', function(data) {
+                callAjax('data.json', function (data) {
                     $scope.list = data;
-                    console.log($scope.list);
                 }),
                 doneInterval
             );
@@ -63,17 +77,13 @@ table.controller('TableController', function TableController($scope) {
     });
 
     function callAjax(url, callback) {
-        return function() {
+        return function () {
             var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                console.log('ajax called');
+            xhttp.onreadystatechange = function () {
                 if (xhttp.readyState == 4 && xhttp.status == 200) {
                     try {
                         var data = JSON.parse(xhttp.responseText);
-                        console.log('DATA: ' + data);
-                    }
-                    catch(error) {
-                        console.log(error.message + ' in ' + xhttp.responseText);
+                    } catch (error) {
                         return;
                     }
                     callback(data);
@@ -98,37 +108,59 @@ angular.module('table').filter('unique', function () {
 
     return function (items, filterOn) {
 
-      if (filterOn === false) {
+        if (filterOn === false) {
+            return items;
+        }
+
+        if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
+            var hashCheck = {},
+                newItems = [];
+
+            var extractValueToCompare = function (item) {
+                if (angular.isObject(item) && angular.isString(filterOn)) {
+                    return item[filterOn];
+                } else {
+                    return item;
+                }
+            };
+
+            angular.forEach(items, function (item) {
+                var valueToCheck, isDuplicate = false;
+
+                for (var i = 0; i < newItems.length; i++) {
+                    if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+                if (!isDuplicate) {
+                    newItems.push(item);
+                }
+
+            });
+            items = newItems;
+        }
         return items;
-      }
-
-      if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
-        var hashCheck = {}, newItems = [];
-
-        var extractValueToCompare = function (item) {
-          if (angular.isObject(item) && angular.isString(filterOn)) {
-            return item[filterOn];
-          } else {
-            return item;
-          }
-        };
-
-        angular.forEach(items, function (item) {
-          var valueToCheck, isDuplicate = false;
-
-          for (var i = 0; i < newItems.length; i++) {
-            if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
-              isDuplicate = true;
-              break;
-            }
-          }
-          if (!isDuplicate) {
-            newItems.push(item);
-          }
-
-        });
-        items = newItems;
-      }
-      return items;
     };
-  });
+});
+
+angular.module('table').filter('mydesc', function () {
+    return function(item, arr) {
+        if (!arr) {
+            console.log('no more');
+            return item;
+        }
+        var out = [];
+
+        // console.log(arr);
+        angular.forEach(item, function(item) {
+            for (let i = 0; i < arr.length; i++) {
+                if (item.description == arr[i]) {
+                    console.log(item);
+                    out.push(item);
+                }
+            }
+        });
+        return out;
+    }
+});
