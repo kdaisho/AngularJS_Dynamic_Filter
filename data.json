@@ -4,34 +4,75 @@
         "name": "Nexus S",
         "description": "Fast just got faster with Nexus S",
         "genre": "Electronics",
-        "duration": 30
+        "duration": 30,
+        "face": {
+            "name": "status1",
+            "val": true
+        },
+        "heel": {
+            "name": "status1",
+            "val": false
+        }
     },
     {
         "id": 2,
         "name": "Motorola XOOM™ with Wi-Fi",
         "description": "The Next, Next Generation tablet",
         "genre": "Electronics",
-        "duration": 10
+        "duration": 10,
+        "face": {
+            "name": "status2",
+            "val": false
+        },
+        "heel": {
+            "name": "status2",
+            "val": true
+        }
     },
     {
         "id": 3,
         "name": "Samsung Galaxy",
         "description": "Slow and Explosive Negative Legacy",
         "genre": "Organic",
-        "duration": 90
+        "duration": 90,
+        "val": true,
+        "face": {
+            "name": "status3",
+            "val": true
+        },
+        "heel": {
+            "name": "status3",
+            "val": false
+        }
     },
     {
         "id": 4,
         "name": "Samsung Galaxy",
         "description": "Slow and Explosive Negative Legacy",
         "genre": "Organic",
-        "duration": 40
+        "duration": 40,
+        "face": {
+            "name": "status4",
+            "val": "checked"
+        },
+        "heel": {
+            "name": "status4",
+            "val": ""
+        }
     },
     {
         "id": 5,
         "name": "Samsung Galaxy",
         "description": "Slow and Explosive Negative Legacy",
         "genre": "Gas Operated",
-        "duration": 120
+        "duration": 120,
+        "face": {
+            "name": "status5",
+            "val": false
+        },
+        "heel": {
+            "name": "status5",
+            "val": true
+        }
     }
 ]

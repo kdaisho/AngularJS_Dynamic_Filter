@@ -60,6 +60,14 @@ table.controller('TableController', function TableController($scope) {
         }
     });
 
+    $scope.addBoarder = function(event) {
+        event.target.style.border = '1px solid #ccc';
+    };
+
+    $scope.removeBoarder = function(event) {
+        event.target.style.border = 'none';
+    };
+
     function callAjax(url, callback) {
         return function () {
             var xhttp = new XMLHttpRequest();

@@ -24,7 +24,7 @@
                 <div id="fwindow" class="filterWindow" ng-show="filtering2" style="position: absolute; top: 30px; left: 0; background: rgba(0, 0, 0, .75);">
                     <button ng-click="desc = ''">Reset</button>
                     <select id="select" ng-model="descman" multiple ng-blur="filtering2 = false">
-                        <option value="" selected default>{{defaultText}}</option>
+                        <option ng-model="selected" default>{{defaultText}}</option>
                         <option ng-repeat="item in flist | unique: 'item.name'" value="{{item}}">{{item}}</option>
                     </select>
                 </div>
@@ -40,19 +40,31 @@
                 </div>
             </th>
             <th>Duration <span ng-click="getSelect(flist, 4)">#</span></th>
+            <th>Face</th>
+            <th>Heel</th>
         </tr>
-        <!-- <tr ng-repeat="item in list | filter: desc | mydesc: ['Nexus S']"> -->
         <tr ng-repeat="item in list | filter: desc | mydesc: descman | mydesc: genreman">
             <td>{{item.id}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.description}}</td>
-            <td>{{item.genre}}</td>
+            <td>
+                <input type="text" ng-model="item.name" ng-focus="addBoarder($event)" ng-blur="removeBoarder($event)">
+            </td>
+            <td>
+                <input type="text" ng-model="item.description" ng-focus="addBoarder($event)" ng-blur="removeBoarder($event)">
+            </td>
+            <td>
+                <input type="text" ng-model="item.genre" ng-focus="addBoarder($event)" ng-blur="removeBoarder($event)">
+            </td>
+            <td>
+                <input type="radio" name="{{item.face.name}}" checked="{{item.face.val}}" />
+            </td>
+            <td>
+                <input type="radio" name="{{item.heel.name}}" checked="{{item.heel.val}}" />
+            </td>
             <td>{{item.duration}}</td>
         </tr>
     </table>
 
-    **** {{descman}} ****
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.js"></script>
     <script src="app.js"></script>
 </body>
 
